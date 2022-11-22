@@ -2,17 +2,13 @@ name: Astronomer CI - Deploy code (Multiple Branches) - dag only
 
 on:
   push:
-    paths:
-      - 'dags/**'
-      - '!*'
+    paths: ['dags/**','!*']
     branches: [dev,main]
   pull_request:
     types:
       - closed
     branches: [main]
-    paths:
-      - 'dags/**'
-      - '!*'
+    paths: ['dags/**','!*'
 
 jobs:
   dev-push:
