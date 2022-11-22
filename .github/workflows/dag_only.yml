@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'dags/**'
+      - '!**'
     branches: [dev,main]
   pull_request:
     types:
@@ -11,6 +12,7 @@ on:
     branches: [main]
     paths:
       - 'dags/**'
+      - '!**'
 
 jobs:
   dev-push:
