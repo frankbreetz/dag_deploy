@@ -7,7 +7,6 @@ from airflow.decorators import dag, task # DAG and task decorators for interfaci
 #another comment
 #another comment
 # a third comment
-# a fourth comment
 @dag(
     # This defines how often your DAG will run, or the schedule by which your DAG runs. In this case, this DAG
     # will run daily
