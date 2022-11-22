@@ -27,7 +27,7 @@ jobs:
     - name: Deploy to Astro
       run: |
         curl -sSL install.astronomer.io | sudo bash -s
-        astro deploy -f
+        astro deploy -f --dags
   prod-push:
     environment: customer-success
     if: github.ref == 'refs/heads/main'
@@ -42,4 +42,5 @@ jobs:
     - name: Deploy to Astro
       run: |
         curl -sSL install.astronomer.io | sudo bash -s
-        astro deploy -f
+        astro deploy -f --dags
+
