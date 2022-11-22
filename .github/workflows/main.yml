@@ -2,8 +2,12 @@ name: Astronomer CI - Deploy code (Multiple Branches) - full deploy
 
 on:
   push:
+    paths-ignore:
+      - 'dags/**'
     branches: [dev,main]
   pull_request:
+    paths-ignore:
+      - 'dags/**'
     types:
       - closed
     branches: [main]

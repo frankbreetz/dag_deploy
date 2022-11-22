@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f5c98d56-b0e7-44d6-9a80-dc84f9233d65" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/dag_only.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/dag_only.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dags/example_dag_basic.py" beforeDir="false" afterPath="$PROJECT_DIR$/dags/example_dag_basic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/main.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/main.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +35,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1669144450321</updated>
-      <workItem from="1669144451677" duration="1488000" />
+      <workItem from="1669144451677" duration="1667000" />
     </task>
     <servers />
   </component>
