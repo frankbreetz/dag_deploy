@@ -12,7 +12,7 @@ jobs:
   paths-filter:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.filter.outputs.not-dags }}
+      not-dags: ${{ steps.filter.outputs.not-dags }}
     steps:
       - uses: actions/checkout@v3
       - uses: dorny/paths-filter@v2
