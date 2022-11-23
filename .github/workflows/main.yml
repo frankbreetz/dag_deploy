@@ -39,7 +39,7 @@ jobs:
     - name: Deploy to Astro
       run: |
         curl -sSL install.astronomer.io | sudo bash -s
-        astro deploy
+        astro deploy -f --no-cache
   prod-push-full:
     needs: paths-filter
     environment: customer-success
