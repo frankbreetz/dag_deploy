@@ -1,37 +1,17 @@
-name: Astronomer CI - Deploy code (Multiple Branches) - full deploy
+name: Astronomer CI - Deploy code
 
 on:
   push:
-    branches: [dev,main]
-  pull_request:
-    types:
-      - closed
-    branches: [main]
+    branches:
+      - main
+
+env:
+  ## Sets Deployment API key credentials as environment variables
+  ASTRONOMER_KEY_ID: ${{ secrets.ASTRONOMER_KEY_ID }}
+  ASTRONOMER_KEY_SECRET: ${{ secrets.ASTRONOMER_KEY_SECRET }}
 
 jobs:
-  paths-filter:
-    runs-on: ubuntu-latest
-    outputs:
-      not-dags: ${{ steps.filter.outputs.not-dags }}
-      dags: ${{ steps.filter.outputs.dags }}
-    steps:
-      - uses: actions/checkout@v3
-      - uses: dorny/paths-filter@v2
-        id: filter
-        with:
-          filters: |
-            not-dags:
-              - '!dags/**'
-            dags:
-              - 'dags/**'
-  dev-push-full:
-    needs: paths-filter
-    environment: customer-success-dev
-    if: ${{ (github.ref == 'refs/heads/dev') && (needs.paths-filter.outputs.not-dags=='true') }}
-    env:
-      ## Sets DEV Deployment API key credentials as environment variables
-      ASTRONOMER_KEY_ID: ${{ secrets.GCP_DEV_ASTRONOMER_KEY_ID }}
-      ASTRONOMER_KEY_SECRET: ${{ secrets.GCP_DEV_ASTRONOMER_KEY_SECRET }}
+  build:
     runs-on: ubuntu-latest
     steps:
     - name: checkout repo
@@ -39,52 +19,4 @@ jobs:
     - name: Deploy to Astro
       run: |
         curl -sSL install.astronomer.io | sudo bash -s
-        astro deploy -f
-  prod-push-full:
-    needs: paths-filter
-    environment: customer-success
-    if: ${{ (github.ref == 'refs/heads/main') && (needs.paths-filter.outputs.not-dags=='true') }}
-    env:
-      ## Sets PROD Deployment API key credentials as environment variables
-      ASTRONOMER_KEY_ID: ${{ secrets.GCP_ASTRONOMER_KEY_ID }}
-      ASTRONOMER_KEY_SECRET: ${{ secrets.GCP_ASTRONOMER_KEY_SECRET }}
-    runs-on: ubuntu-latest
-    steps:
-    - name: checkout repo
-      uses: actions/checkout@v3
-    - name: Deploy to Astro
-      run: |
-        curl -sSL install.astronomer.io | sudo bash -s
-        astro deploy -f
-  dev-push-dags:
-    needs: paths-filter
-    environment: customer-success-dev
-    if: ${{ (github.ref == 'refs/heads/dev') && (needs.paths-filter.outputs.not-dags=='false') && (needs.paths-filter.outputs.dags=='true')}}
-    env:
-      ## Sets DEV Deployment API key credentials as environment variables
-      ASTRONOMER_KEY_ID: ${{ secrets.GCP_DEV_ASTRONOMER_KEY_ID }}
-      ASTRONOMER_KEY_SECRET: ${{ secrets.GCP_DEV_ASTRONOMER_KEY_SECRET }}
-    runs-on: ubuntu-latest
-    steps:
-    - name: checkout repo
-      uses: actions/checkout@v3
-    - name: Deploy to Astro
-      run: |
-        curl -sSL install.astronomer.io | sudo bash -s
-        astro deploy -f --dags
-  prod-push-dags:
-    needs: paths-filter
-    environment: customer-success
-    if: ${{ (github.ref == 'refs/heads/main') && (needs.paths-filter.outputs.not-dags=='false') && (needs.paths-filter.outputs.dags=='true') }}
-    env:
-      ## Sets PROD Deployment API key credentials as environment variables
-      ASTRONOMER_KEY_ID: ${{ secrets.GCP_ASTRONOMER_KEY_ID }}
-      ASTRONOMER_KEY_SECRET: ${{ secrets.GCP_ASTRONOMER_KEY_SECRET }}
-    runs-on: ubuntu-latest
-    steps:
-    - name: checkout repo
-      uses: actions/checkout@v3
-    - name: Deploy to Astro
-      run: |
-        curl -sSL install.astronomer.io | sudo bash -s
-        astro deploy -f --dags
+        astro deplo
