@@ -12,19 +12,19 @@ jobs:
   paths-filter:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.filter.outputs.dags }}
+      output1: ${{ steps.filter.outputs.not-dags }}
     steps:
       - uses: actions/checkout@v3
       - uses: dorny/paths-filter@v2
         id: filter
         with:
           filters: |
-            dags:
+            not-dags:
               - '!dags/**'
   dev-push:
     needs: paths-filter
     environment: customer-success-dev
-    if: ${{ (github.ref == 'refs/heads/dev') && (needs.paths-filter.outputs.dags=='true') }}
+    if: ${{ (github.ref == 'refs/heads/dev') && (needs.paths-filter.outputs.not-dags=='true') }}
     env:
       ## Sets DEV Deployment API key credentials as environment variables
       ASTRONOMER_KEY_ID: ${{ secrets.GCP_DEV_ASTRONOMER_KEY_ID }}
@@ -40,7 +40,7 @@ jobs:
   prod-push:
     needs: paths-filter
     environment: customer-success
-    if: ${{ (github.ref == 'refs/heads/main') && (needs.paths-filter.outputs.dags=='true') }}
+    if: ${{ (github.ref == 'refs/heads/main') && (needs.paths-filter.outputs.not-dags=='true') }}
     env:
       ## Sets PROD Deployment API key credentials as environment variables
       ASTRONOMER_KEY_ID: ${{ secrets.GCP_ASTRONOMER_KEY_ID }}
