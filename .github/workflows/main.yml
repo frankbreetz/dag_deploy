@@ -26,6 +26,7 @@ jobs:
               - 'dags/**'
   dev-push-full:
     needs: paths-filter
+    environment: customer-success-dev
     if: ${{ (github.ref == 'refs/heads/dev') && (needs.paths-filter.outputs.not-dags=='true') }}
     env:
       ## Sets DEV Deployment API key credentials as environment variables
@@ -41,6 +42,7 @@ jobs:
         astro deploy -f
   prod-push-full:
     needs: paths-filter
+    environment: customer-success
     if: ${{ (github.ref == 'refs/heads/main') && (needs.paths-filter.outputs.not-dags=='true') }}
     env:
       ## Sets PROD Deployment API key credentials as environment variables
@@ -56,6 +58,7 @@ jobs:
         astro deploy -f
   dev-push-dags:
     needs: paths-filter
+    environment: customer-success-dev
     if: ${{ (github.ref == 'refs/heads/dev') && (needs.paths-filter.outputs.not-dags=='false') && (needs.paths-filter.outputs.dags=='true')}}
     env:
       ## Sets DEV Deployment API key credentials as environment variables
@@ -71,6 +74,7 @@ jobs:
         astro deploy -f --dags
   prod-push-dags:
     needs: paths-filter
+    environment: customer-success
     if: ${{ (github.ref == 'refs/heads/main') && (needs.paths-filter.outputs.not-dags=='false') && (needs.paths-filter.outputs.dags=='true') }}
     env:
       ## Sets PROD Deployment API key credentials as environment variables
