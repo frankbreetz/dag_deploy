@@ -23,7 +23,7 @@ jobs:
               - '!dags/**'
   dev-push:
     environment: customer-success-dev
-    if: github.ref == 'refs/heads/dev' && steps.filter.outputs.workflow==true
+    if: ${{ (github.ref == 'refs/heads/dev') && (steps.filter.outputs.workflow=='true') }}
     env:
       ## Sets DEV Deployment API key credentials as environment variables
       ASTRONOMER_KEY_ID: ${{ secrets.GCP_DEV_ASTRONOMER_KEY_ID }}
@@ -38,7 +38,7 @@ jobs:
         astro deploy -f
   prod-push:
     environment: customer-success
-    if: github.ref == 'refs/heads/main' && steps.filter.outputs.workflow==true
+    if: ${{ (github.ref == 'refs/heads/main') && (steps.filter.outputs.workflow=='true') }}
     env:
       ## Sets PROD Deployment API key credentials as environment variables
       ASTRONOMER_KEY_ID: ${{ secrets.GCP_ASTRONOMER_KEY_ID }}
