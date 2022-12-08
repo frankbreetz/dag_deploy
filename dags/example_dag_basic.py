@@ -7,7 +7,6 @@ from airflow.decorators import dag, task # DAG and task decorators for interfaci
 #another comment
 #another comment
 # a second comment
-# a third comment
 
 
 @dag(
